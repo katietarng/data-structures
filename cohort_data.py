@@ -45,18 +45,16 @@ def sort_by_cohort(filename):
 
     the_file = open(filename)
 
-    #all_students = []
+    all_students = []
     winter_15 = []
     spring_15 = []
     summer_15 = []
     tas = []
 
+
     for line in the_file: 
         line = line.rstrip()
         data = line.split('|')
-
-        #cohort = data[4]
-        #first_name = data[0]
         
         if data[4] == 'I':
             pass
@@ -70,14 +68,8 @@ def sort_by_cohort(filename):
             elif data[4] == 'Winter 2015':
                 winter_15.append(data[0])
 
-
-
-    print tas
-    print winter_15
-    print spring_15
-    print summer_15
-
-    #return all_students
+    all_students = [winter_15, spring_15, summer_15,tas]            
+    return all_students
 
 
 def students_by_house(filename):
@@ -99,6 +91,7 @@ def students_by_house(filename):
                         instructors
             ]
     """
+    the_file = open(filename)
 
     all_students = []
     gryffindor = []
@@ -110,7 +103,36 @@ def students_by_house(filename):
     tas = []
     instructors = []
 
-    # Code goes here
+    for line in the_file: 
+        line = line.rstrip()
+        data = line.split('|')
+        house = data[2]
+        last_name = data[1]
+
+        if house == '' and data[4] == 'I':
+            instructors.append(last_name)
+        elif house == '' and data[4] == 'TA':
+            tas.append(last_name)
+        else:
+            if house == 'Slytherin':
+                slytherin.append(last_name)
+            elif house == 'Hufflepuff':
+                hufflepuff.append(last_name)
+            elif house == 'Gryffindor':
+                gryffindor.append(last_name)
+            elif house == "Dumbledore\'s Army":
+                dumbledores_army.append(last_name)
+            elif house == 'Ravenclaw':
+                ravenclaw.append(last_name)
+            elif house == 'Order of the Phoenix':
+                order_of_the_phoenix.append(last_name)
+
+    all_students = [slytherin,
+                    hufflepuff,
+                    gryffindor,
+                    dumbledores_army,
+                    ravenclaw,
+                    order_of_the_phoenix]
 
     return all_students
 
@@ -186,8 +208,8 @@ def find_house_members_by_student_name(student_list):
 # Here is some useful code to run these functions!
 
 #print unique_houses("cohort_data.txt")
-print sort_by_cohort("cohort_data.txt")
-# print students_by_house("cohort_data.txt")
+# print sort_by_cohort("cohort_data.txt")
+print students_by_house("cohort_data.txt")
 # all_students_data = all_students_tuple_list("cohort_data.txt")
 # print all_students_data
 # find_cohort_by_student_name(all_students_data)
